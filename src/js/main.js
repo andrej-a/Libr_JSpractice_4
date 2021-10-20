@@ -1,11 +1,5 @@
 import "./lib/lib";
 
-let elem = $(".second").find(0);
-console.log(elem);
-elem.click(function() {
-    console.log($(this).html());
-});
+//let elem = $(".some");
 
-$("div").click(function() {
-    console.log($(this).index());
-});
+console.log($(".findme").getSiblingAll().addClass("testrrrr"));
