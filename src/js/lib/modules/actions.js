@@ -68,6 +68,8 @@ $.prototype.find = function(selector) {
      return this;
 };
 
+//5
+
 $.prototype.closest = function(selector) {
     let counter = 0;
 
@@ -84,6 +86,7 @@ $.prototype.closest = function(selector) {
      return this;
 };
  
+//6
 
 $.prototype.getSiblingAll = function () {
     const parent = this[0].parentElement; //get element`s parent
@@ -91,6 +94,7 @@ $.prototype.getSiblingAll = function () {
     if (parent.childElementCount === 1) {//if there aren`t some sibling elements
         return this;
     }
+    
     const arr = []; //create empty array
     for (let i = 0; i < parent.childElementCount; i++) {
         if (i !== this.index()) { //i === number of elements and when i !== index of our element continue

@@ -2,4 +2,10 @@ import "./lib/lib";
 
 //let elem = $(".some");
 
-console.log($(".findme").getSiblingAll().addClass("testrrrr"));
+
+$("button").click(function() {
+    $(".findme").fadeOutAPI();
+});
+$(".second").click(function() {
+    $(".findme").fadeInAPI();
+});

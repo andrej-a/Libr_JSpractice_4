@@ -138,8 +138,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_handlers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/handlers */ "./src/js/lib/modules/handlers.js");
 /* harmony import */ var _modules_attributes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/attributes */ "./src/js/lib/modules/attributes.js");
 /* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/actions */ "./src/js/lib/modules/actions.js");
+/* harmony import */ var _modules_animation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/animation */ "./src/js/lib/modules/animation.js");
 //файл экспортов всего для сбора библиотеки
 //тут обогащается $ методами из разных модулей
+
 
 
 
@@ -231,7 +233,8 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.find = function (selecto
   }
 
   return this;
-};
+}; //5
+
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.closest = function (selector) {
   let counter = 0;
@@ -248,7 +251,8 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.closest = function (sele
   }
 
   return this;
-};
+}; //6
+
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.getSiblingAll = function () {
   const parent = this[0].parentElement; //get element`s parent
@@ -272,6 +276,139 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.getSiblingAll = function
   }
 
   this.length = arr.length;
+  return this;
+};
+
+/***/ }),
+
+/***/ "./src/js/lib/modules/animation.js":
+/*!*****************************************!*\
+  !*** ./src/js/lib/modules/animation.js ***!
+  \*****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.animateOverTime = function (duration, callback, fin) {
+  let timeStart; //запускается каждый раз и получает аргумент time из браузера
+  //в первый запуск записываем time в timeStart как стартовое время
+
+  function _animateOverTime(time) {
+    if (!timeStart) {
+      timeStart = time;
+    } //от времени из браузера time (меняется каждую итерацию) каждый раз отнимаем время начала анимации
+
+
+    let timeElapsed = time - timeStart; //вычисляется изменение opacity и меняется. как только станет >, то 1 opacity = 1
+
+    let complection = Math.min(timeElapsed / duration, 1);
+    callback(complection);
+
+    if (timeElapsed < duration) {
+      requestAnimationFrame(_animateOverTime);
+    } else {
+      if (typeof fin === "function") {
+        fin();
+      }
+    }
+  }
+
+  return _animateOverTime;
+}; //1
+//вариант из урока
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeIn = function (duration, display, fin) {
+  for (let i = 0; i < this.length; i++) {
+    this[i].style.display = display || "block"; //еще один способ задать параметры по-умолчанию
+
+    const _fadeIn = complection => {
+      this[i].style.opacity = complection;
+    };
+
+    const ani = this.animateOverTime(duration, _fadeIn, fin);
+    requestAnimationFrame(ani);
+  }
+
+  return this;
+}; //рабочий вариант с Web Animations API
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeInAPI = function () {
+  function _fadeInAPI(elem, duration = 800, iterate = 1) {
+    const opacity = [{
+      opacity: "0",
+      offset: 0
+    }, {
+      opacity: "1",
+      offset: 1
+    }];
+    const timing = {
+      duration: duration,
+      iterations: iterate
+    };
+    return elem.animate(opacity, timing);
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    const element = this[i];
+
+    _fadeInAPI(element, 800, 1);
+  }
+
+  return this;
+}; //2
+//варинат из урока
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeOut = function (duration, fin) {
+  for (let i = 0; i < this.length; i++) {
+    const _fadeOut = complection => {
+      this[i].style.opacity = 1 - complection;
+
+      if (complection === 1) {
+        this[i].style.display = "none";
+      }
+    };
+
+    const ani = this.animateOverTime(duration, _fadeOut, fin);
+    requestAnimationFrame(ani);
+  }
+
+  return this;
+}; //рабочий вариант с Web Animations API
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeOutAPI = function (duration = 800) {
+  function _fadeOutAPI(elem, duration = 800, iterate = 1) {
+    const opacity = [{
+      opacity: "1",
+      offset: 0
+    }, {
+      opacity: "0",
+      offset: 1
+    }];
+    const timing = {
+      duration: duration,
+      iterations: iterate
+    };
+    return elem.animate(opacity, timing);
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    const elem = this[i];
+
+    _fadeOutAPI(elem, 800, 1);
+
+    setTimeout(() => {
+      elem.style.display = "none";
+    }, duration);
+  }
+
   return this;
 };
 
@@ -527,7 +664,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/lib */ "./src/js/lib/lib.js");
  //let elem = $(".some");
 
-console.log($(".findme").getSiblingAll().addClass("testrrrr"));
+$("button").click(function () {
+  $(".findme").fadeOutAPI();
+});
+$(".second").click(function () {
+  $(".findme").fadeInAPI();
+});
 
 /***/ })
 
