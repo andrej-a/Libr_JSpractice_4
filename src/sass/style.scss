@@ -1,16 +1,5 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-button {
-    width: 150px;
-    height: 50px;
-    border: 1px solid red;
-}
-
-.active {
-    font-size: 50px;
-    
-}
+@import "./general/base";
+@import "./general/variables";
+@import "./general/typography.scss";
+@import "./components/ui.scss";
+@import "./helpers/classes.scss";
