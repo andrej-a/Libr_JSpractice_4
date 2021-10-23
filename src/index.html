@@ -9,12 +9,23 @@
 </head>
 <body>
     <div class="container">
-        
-    <button class="btn btn-primary m20" id="first">First text</button>
-    <button class="btn btn-danger" id="second">Second text</button>
-    
-    </div>
-    
+        <!-- Dropdown menu -->
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton">Dropdown button</button>
+            <div class="dropdown-menu" data-toggle-id="dropdownMenuButton">
+                <a href="#" class="dropdown-item">Action 1</a>
+                <a href="#" class="dropdown-item">Action 2</a>
+                <a href="#" class="dropdown-item">Action 3</a>
+            </div>
+
+            <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton2">Dropdown button 2</button>
+            <div class="dropdown-menu" data-toggle-id="dropdownMenuButton2">
+                <a href="#" class="dropdown-item">Action 11</a>
+                <a href="#" class="dropdown-item">Action 22</a>
+                <a href="#" class="dropdown-item">Action 33</a>
+            </div>
+        </div><!--dropdown--> 
+    </div> <!--container-->
     <script src='script.js'></script>
 </body>
 </html>

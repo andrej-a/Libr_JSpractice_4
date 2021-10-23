@@ -56,35 +56,35 @@
         }
     }
 
-    &-outline-primary {//модификатор типа class=".btn .btn-primary"
+    &-outline-primary {
         border-color: $primary;
         color: $primary;
         &:hover {
             background-color: $primary;
         }
     }
-    &-outline-success {//модификатор типа class=".btn .btn-primary"
+    &-outline-success {
         border-color: $success;
         color: $success;
         &:hover {
             background-color: $success;
         }
     }
-    &-outline-danger {//модификатор типа class=".btn .btn-primary"
+    &-outline-danger {
         border-color: $danger;
         color: $danger;
         &:hover {
             background-color: $danger;
         }
     }
-    &-outline-warning {//модификатор типа class=".btn .btn-primary"
+    &-outline-warning {
         border-color: $warning;
         color: $warning;
         &:hover {
             background-color: $warning;
         }
     }
-    &-outline-dark {//модификатор типа class=".btn .btn-primary"
+    &-outline-dark {
         border-color: $dark;
         color: $dark;
         &:hover {

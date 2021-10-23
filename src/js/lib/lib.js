@@ -9,6 +9,7 @@ import "./modules/handlers";
 import "./modules/attributes";
 import "./modules/actions";
 import "./modules/animation";
+import "./components/dropdown";
 
 
 export default $;

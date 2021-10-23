@@ -86,6 +86,29 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/js/lib/components/dropdown.js":
+/*!*******************************************!*\
+  !*** ./src/js/lib/components/dropdown.js ***!
+  \*******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.dropdown = function (e) {
+  for (let i = 0; i < this.length; i++) {
+    if (Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(e.target).dataset.toggleId === Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(e.target).previousElementSibling.id) {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeToggle();
+    }
+  } //return this;
+
+};
+
+/***/ }),
+
 /***/ "./src/js/lib/core.js":
 /*!****************************!*\
   !*** ./src/js/lib/core.js ***!
@@ -139,8 +162,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_attributes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/attributes */ "./src/js/lib/modules/attributes.js");
 /* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/actions */ "./src/js/lib/modules/actions.js");
 /* harmony import */ var _modules_animation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/animation */ "./src/js/lib/modules/animation.js");
+/* harmony import */ var _components_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/dropdown */ "./src/js/lib/components/dropdown.js");
 //файл экспортов всего для сбора библиотеки
 //тут обогащается $ методами из разных модулей
+
 
 
 
@@ -410,6 +435,16 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeOutAPI = function (d
   }
 
   return this;
+}; //3
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeToggle = function (dur = 400, display = "block") {
+  for (let i = 0; i < this.length; i++) {
+    window.getComputedStyle(this[i]).display === "none" ? Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeIn(dur, display) : Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeOut(dur);
+  }
+
+  console.log(this);
+  return this;
 };
 
 /***/ }),
@@ -662,13 +697,9 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (callba
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/lib */ "./src/js/lib/lib.js");
- //let elem = $(".some");
 
-$("button").click(function () {
-  $(".findme").fadeOutAPI();
-});
-$(".second").click(function () {
-  $(".findme").fadeInAPI();
+$(".dropdown-toggle").click(function () {
+  $(".dropdown-menu").dropdown();
 });
 
 /***/ })
