@@ -98,14 +98,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
 
 
-_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.dropdown = function (e) {
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.dropdown = function () {
   for (let i = 0; i < this.length; i++) {
-    if (Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(e.target).dataset.toggleId === Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(e.target).previousElementSibling.id) {
-      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeToggle();
+    if (this[i].id === this[i].nextElementSibling.dataset.toggleId) {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].nextElementSibling).fadeToggle();
     }
-  } //return this;
+  }
 
+  return this;
 };
+
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".dropdown-toggle").click(function (e) {
+  Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(e.target).dropdown();
+});
+
+/***/ }),
+
+/***/ "./src/js/lib/components/modal.js":
+/*!****************************************!*\
+  !*** ./src/js/lib/components/modal.js ***!
+  \****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.openModal = function () {
+  for (let i = 0; i < this.length; i++) {
+    const target = this[i].dataset.target;
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).click(e => {
+      e.preventDefault();
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeIn(400);
+      document.body.style.overflow = "hidden";
+    });
+  }
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.closeModal = function () {
+  for (let i = 0; i < this.length; i++) {
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).click(e => {
+      if (e.target.classList.contains("modal") || e.target.dataset.close === "") {
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".modal").fadeOut(400);
+        document.body.style.overflow = "";
+      }
+    });
+  }
+};
+
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])("[data-toggle='modal']").openModal();
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])("[data-close]").closeModal();
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".modal").closeModal();
 
 /***/ }),
 
@@ -163,8 +208,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/actions */ "./src/js/lib/modules/actions.js");
 /* harmony import */ var _modules_animation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/animation */ "./src/js/lib/modules/animation.js");
 /* harmony import */ var _components_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/dropdown */ "./src/js/lib/components/dropdown.js");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./src/js/lib/components/modal.js");
 //файл экспортов всего для сбора библиотеки
 //тут обогащается $ методами из разных модулей
+
 
 
 
@@ -443,7 +490,6 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeToggle = function (d
     window.getComputedStyle(this[i]).display === "none" ? Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeIn(dur, display) : Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeOut(dur);
   }
 
-  console.log(this);
   return this;
 };
 
@@ -698,9 +744,6 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (callba
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/lib */ "./src/js/lib/lib.js");
 
-$(".dropdown-toggle").click(function () {
-  $(".dropdown-menu").dropdown();
-});
 
 /***/ })
 

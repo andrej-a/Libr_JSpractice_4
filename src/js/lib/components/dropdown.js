@@ -1,10 +1,14 @@
 import $ from "../core";
 
-$.prototype.dropdown = function(e) {
+$.prototype.dropdown = function() {
     for (let i = 0; i < this.length; i++) {
-        if ($(e.target).dataset.toggleId === $(e.target).previousElementSibling.id) {
-            $(this[i]).fadeToggle();
+        if (this[i].id === this[i].nextElementSibling.dataset.toggleId) {
+            $(this[i].nextElementSibling).fadeToggle();
         }
     }
-    //return this;
+    return this;
 };
+
+$(".dropdown-toggle").click(function(e) {
+    $(e.target).dropdown();
+});

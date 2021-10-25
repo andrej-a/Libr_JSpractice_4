@@ -112,6 +112,5 @@ $.prototype.fadeToggle = function(dur = 400, display = "block") {
     for(let i = 0; i < this.length; i++) {
         window.getComputedStyle(this[i]).display === "none" ? $(this[i]).fadeIn(dur, display) : $(this[i]).fadeOut(dur);
     }
-    console.log(this);
     return this;
 };
