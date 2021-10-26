@@ -137,20 +137,96 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.openModal = function () 
   }
 };
 
-_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.closeModal = function () {
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.closeModal = function (target) {
   for (let i = 0; i < this.length; i++) {
     Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).click(e => {
-      if (e.target.classList.contains("modal") || e.target.dataset.close === "") {
-        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".modal").fadeOut(400);
-        document.body.style.overflow = "";
+      if (e.target.dataset.close === "") {
+        if (e.target.classList.contains("dynamic")) {
+          Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeOut(400);
+          document.body.style.overflow = "";
+          console.log(target);
+          document.body.removeChild(document.querySelector(target));
+        } else {
+          Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeOut(400);
+          document.body.style.overflow = "";
+        }
       }
     });
   }
 };
 
 Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])("[data-toggle='modal']").openModal();
-Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])("[data-close]").closeModal();
-Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".modal").closeModal();
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])("[data-close]").closeModal(".modal"); //btns = {count: num, settings: [[text, classNames=[], close, callback]]}
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.createModal = function ({
+  text,
+  btns
+} = {}) {
+  for (let i = 0; i < this.length; i++) {
+    let modal = document.createElement("div");
+    modal.setAttribute("id", this[i].dataset.target.slice(1));
+    modal.classList.add("modal", "dynamic");
+    modal.setAttribute("data-close", "");
+    modal.innerHTML = `
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <button class="close">
+                        <span class="dynamic" data-close>&times;</span>
+                    </button>
+
+                    <div class="modal-header">
+                        <div class="modal-title">
+                            ${text.title}
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                            ${text.title}
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        `; //innerHTML
+
+    const buttons = [];
+
+    for (let j = 0; j < btns.count; j++) {
+      let btn = document.createElement("button");
+      btn.innerText = btns.settings[j][0];
+      btn.classList.add("btn", ...btns.settings[j][1]);
+
+      if (btns.settings[j][2] === true) {
+        btn.setAttribute("data-close", "");
+      }
+
+      if (btns.settings[j][3] && typeof btns.settings[j][3] === "function") {
+        btn.addEventListener("click", btns.settings[j][3]);
+      }
+
+      buttons.push(btn);
+    }
+
+    document.body.append(modal);
+    modal.querySelector(".modal-footer").append(...buttons);
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(modal).fadeIn(400);
+    console.log(modal.id);
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])("[data-close]").closeModal(`#${modal.id}`);
+  }
+}; //createModal
+
+
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])("#testTrigger2").click(function (e) {
+  Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])("#testTrigger2").createModal({
+    text: {
+      title: "Test Modal Title #2",
+      body: "Test Modal Body #2"
+    },
+    btns: {
+      count: 2,
+      settings: [["Close #2", ["btn-danger", "dynamic"], true], ["Safe changes #2", ["btn-success"], false]]
+    }
+  });
+});
 
 /***/ }),
 

@@ -39,13 +39,13 @@
 
 
         <!--Card-->
-        <div class="goods d-flex f-space-between">
+        <div class="parent d-flex f-space-between">
             <div class="card">
                 <img class="card-img" src="https://cdn.shopify.com/s/files/1/0472/7118/2499/products/SMART100.png?v=1632418394" alt="photo">
                 <div class="card-body">
                     <div class="card-title">Card title</div>
                     <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio non veniam nobis! Saepe reiciendis vero, facilis nostrum eligendi quia rerum at odit iste quo nihil qui repellendus quod ullam eum!
-                    <a href="#" class="btn card-btn" data-toggle="modal" data-target="#exampleModal2">Link to</a>
+                    <a href="#" id="testTrigger" class="btn card-btn" data-toggle="modal" data-target="#exampleModal">Link to</a>
                 </div>
             </div> <!--Card-->
 
@@ -54,14 +54,14 @@
                 <div class="card-body">
                     <div class="card-title">Card title 2</div>
                     <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio non veniam nobis! Saepe reiciendis vero, facilis nostrum eligendi quia rerum at odit iste quo nihil qui repellendus quod ullam eum!
-                    <a href="#" class="btn card-btn" data-toggle="modal" data-target="#exampleModal">Link to</a>
+                    <a href="#" id="testTrigger2" class="btn card-btn" data-target="#dynamicModal">Link to</a>
                 </div>
             </div> <!--Card-->
 
-        </div><!--goods-->
+        </div><!--parent-->
 
         <!--Modal-->
-        <div class="modal" id="exampleModal">
+        <div class="modal" data-close id="exampleModal">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <button class="close">
