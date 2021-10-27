@@ -11,6 +11,8 @@ import "./modules/actions";
 import "./modules/animation";
 import "./components/dropdown";
 import "./components/modal";
+import "./components/tabs";
+import "./components/accordeon";
 
 
 export default $;

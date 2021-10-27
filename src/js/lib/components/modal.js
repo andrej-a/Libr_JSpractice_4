@@ -14,11 +14,11 @@ $.prototype.openModal = function() {
 $.prototype.closeModal = function(target) {
     for(let i = 0; i < this.length; i++) {
         $(this[i]).click((e) => {
+            console.log(e.target);
             if (e.target.dataset.close === "") {
                 if (e.target.classList.contains("dynamic")) {
                     $(target).fadeOut(400);
                     document.body.style.overflow = "";
-                    console.log(target);
                     document.body.removeChild(document.querySelector(target));
                 } else {
                     $(target).fadeOut(400);
@@ -66,15 +66,16 @@ $("[data-close]").closeModal(".modal");
         const buttons = [];
         for (let j = 0; j < btns.count; j++) {
             let btn = document.createElement("button");
-            btn.innerText = btns.settings[j][0];
-            btn.classList.add("btn", ...btns.settings[j][1]);
+            let [text, classes, close, cb] = btns.settings[j];
+            btn.innerText = text;
+            btn.classList.add("btn", ...classes);
             
-            if (btns.settings[j][2] === true) {
+            if (close === true) {
                 btn.setAttribute("data-close", "");
             }
 
-            if (btns.settings[j][3] && typeof(btns.settings[j][3]) === "function") {
-                btn.addEventListener("click", btns.settings[j][3]);
+            if (cb && typeof(cb === "function")) {
+                btn.addEventListener("click", cb);
             }
 
             buttons.push(btn);
@@ -83,14 +84,15 @@ $("[data-close]").closeModal(".modal");
         document.body.append(modal);
         modal.querySelector(".modal-footer").append(...buttons);
         $(modal).fadeIn(400);
-        console.log(modal.id);
-        $("[data-close]").closeModal(`#${modal.id}`);
+        modal.querySelectorAll("[data-close]").forEach(btn => {
+            $(btn).closeModal(`#${modal.id}`);
+        });
     }
 
 }//createModal
 
-$("#testTrigger2").click(function(e) {
-    $("#testTrigger2").createModal({
+$("#testTrigger").click(function(e) {
+    $("#testTrigger").createModal({
         text: {
             title: "Test Modal Title #2",
             body: "Test Modal Body #2"
@@ -99,7 +101,7 @@ $("#testTrigger2").click(function(e) {
             count: 2,
             settings: [
                 ["Close #2", ["btn-danger", "dynamic"], true],
-                ["Safe changes #2", ["btn-success"], false],
+                ["Safe changes #2", ["btn-success"], false, ],
             ]
         }
     });

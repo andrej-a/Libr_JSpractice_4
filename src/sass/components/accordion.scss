@@ -1,0 +1,22 @@
+.accordeon{
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &-heading{
+        font-size: 36px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-bottom: 1px solid rgba(18, 18, 22, 0.2);
+        cursor: pointer;
+    }
+
+    &-block{
+        font-size: 48px;
+    }
+
+    &-active{
+        color: rgb(146, 17, 17)
+    }
+}

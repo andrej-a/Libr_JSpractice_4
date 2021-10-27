@@ -200,6 +200,46 @@
     display: flex;
     justify-content: space-between; }
 
+.tab {
+  display: block;
+  margin: 0 auto; }
+  .tab-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #343a40;
+    border-radius: 5px; }
+  .tab-item {
+    font-size: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer; }
+    .tab-item--active {
+      font-size: 24px;
+      color: #db1212; }
+  .tab-content {
+    display: none;
+    margin-top: 20px; }
+    .tab-content--active {
+      display: block; }
+
+.accordeon {
+  margin: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .accordeon-heading {
+    font-size: 36px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid rgba(18, 18, 22, 0.2);
+    cursor: pointer; }
+  .accordeon-block {
+    font-size: 48px; }
+  .accordeon-active {
+    color: #921111; }
+
 .text-center {
   text-align: center; }
 

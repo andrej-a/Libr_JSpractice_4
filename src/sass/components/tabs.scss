@@ -1,0 +1,29 @@
+.tab{
+    display: block;
+    margin: 0 auto;
+    &-panel{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid $dark;
+        border-radius: 5px;
+    }
+    &-item{
+        font-size: 20px;
+        margin-bottom: 10px;
+        padding: 10px;
+        cursor: pointer;
+        &--active{
+            font-size: 24px;
+            color: #db1212;
+        }
+    }
+    &-content{
+        display: none;
+        margin-top: 20px;
+        &--active{
+            display: block;
+        }
+    }
+}
