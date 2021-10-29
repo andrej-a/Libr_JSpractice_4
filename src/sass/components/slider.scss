@@ -69,7 +69,8 @@
        transition: opacity .15s ease;
        text-decoration: none;
        &:hover{
-           opacity: .9
+           opacity: 1;
+           background-color: rgba(49, 49, 49, 0.5);
        }
     }
     &-prev{
