@@ -280,6 +280,84 @@ Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])("#testTrigger").click(func
 
 /***/ }),
 
+/***/ "./src/js/lib/components/slider.js":
+/*!*****************************************!*\
+  !*** ./src/js/lib/components/slider.js ***!
+  \*****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function () {
+  for (let i = 0; i < this.length; i++) {
+    const width = window.getComputedStyle(this[i].querySelector(".carousel-inner")).width; //ширина родителя
+
+    const slides = this[i].querySelectorAll(".carousel-item"); //количество слайдов
+
+    const slidesField = this[i].querySelector(".carousel-slides");
+    const dots = this[i].querySelectorAll(".carousel-indicators>li");
+    slidesField.style.width = 100 * slides.length + "%"; //ставим ширину обертки
+
+    slides.forEach(item => {
+      //все слайды в один размер
+      item.style.width = width;
+    });
+    let offset = 0;
+    let index = 0;
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].querySelector('[data-slide="next"]')).click(e => {
+      e.preventDefault();
+
+      if (offset === +width.replace(/\D/g, "") * (slides.length - 1)) {
+        offset = 0;
+        index = 0;
+      } else {
+        offset += +width.replace(/\D/g, "");
+        index++;
+      }
+
+      slidesField.style.transform = `translateX(-${offset}px)`;
+      dots.forEach(dot => {
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(dot).getSiblingAll().removeClass("active");
+        dots[index].classList.add("active");
+      });
+    });
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].querySelector('[data-slide="prev"]')).click(e => {
+      e.preventDefault();
+
+      if (offset === 0) {
+        offset = +width.replace(/\D/g, "") * (slides.length - 1);
+        index = slides.length - 1;
+      } else {
+        offset -= +width.replace(/\D/g, "");
+        index--;
+      }
+
+      slidesField.style.transform = `translateX(-${offset}px)`;
+      dots.forEach(dot => {
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(dot).getSiblingAll().removeClass("active");
+        dots[index].classList.add("active");
+      });
+    });
+    dots.forEach((dot, i) => {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(dot).click(() => {
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(dot).getSiblingAll().removeClass("active");
+        dots[i].classList.add("active");
+        offset = i * +width.replace(/\D/g, "");
+        index = i;
+        slidesField.style.transform = `translateX(-${offset}px)`;
+      });
+    });
+  }
+};
+
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".carousel").slider();
+
+/***/ }),
+
 /***/ "./src/js/lib/components/tabs.js":
 /*!***************************************!*\
   !*** ./src/js/lib/components/tabs.js ***!
@@ -368,8 +446,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./src/js/lib/components/modal.js");
 /* harmony import */ var _components_tabs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tabs */ "./src/js/lib/components/tabs.js");
 /* harmony import */ var _components_accordeon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/accordeon */ "./src/js/lib/components/accordeon.js");
+/* harmony import */ var _components_slider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/slider */ "./src/js/lib/components/slider.js");
 //файл экспортов всего для сбора библиотеки
 //тут обогащается $ методами из разных модулей
+
 
 
 

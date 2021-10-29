@@ -13,6 +13,7 @@ import "./components/dropdown";
 import "./components/modal";
 import "./components/tabs";
 import "./components/accordeon";
+import "./components/slider";
 
 
 export default $;
