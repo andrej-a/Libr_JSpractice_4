@@ -300,8 +300,9 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
   },
   dots = true,
   //точки слайдера
-  axis = "horizontal" //направление
-
+  axis = "horizontal",
+  //направление
+  counter = false
 } = {}) {
   for (let i = 0; i < this.length; i++) {
     const width = window.getComputedStyle(this[i].querySelector(".carousel-inner")).width; //ширина родителя
@@ -312,6 +313,7 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
 
     const slidesField = this[i].querySelector(".carousel-slides"); //div слайдеров
 
+    let counterField = null;
     let offset = 0;
     let index = 0;
     let interval = null;
@@ -339,17 +341,25 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
       item.style.width = width;
     });
 
-    if (dots) {
-      //если точки включены -- создаем
-      const dotsWrapper = this[i].querySelector(".carousel-indicators");
+    const initCounter = () => {
+      //счетчик слайдеров типа 1/4
+      if (counter) {
+        if (!counterField) {
+          //если не создано то создаем
+          counterField = document.createElement("div"); //div счетчика
 
-      for (let j = 0; j < slides.length; j++) {
-        const dot = document.createElement("li");
-        dotsWrapper.append(dot);
-        dotsArray.push(dot);
-        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(dotsArray[0]).addClass("active");
+          Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(counterField).addClass("carousel-counter");
+          this[i].append(counterField);
+          counterField.style.display = "flex";
+          counterField.innerHTML = `<p>${index + 1} / ${slides.length}</p>`;
+        } else {
+          //если создано просто меняем
+          counterField.innerHTML = `<p>${index + 1} / ${slides.length}</p>`;
+        }
       }
-    }
+    };
+
+    initCounter();
 
     const toggleSlides = function () {
       //переключаем слайды
@@ -362,6 +372,8 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
           dotsArray[index].classList.add("active");
         });
       } catch (e) {}
+
+      initCounter();
     };
 
     const initSlides = function (toNext = true) {
@@ -397,7 +409,17 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
       initSlides(false);
     });
 
-    try {
+    if (dots) {
+      //если точки включены -- создаем
+      const dotsWrapper = this[i].querySelector(".carousel-indicators");
+
+      for (let j = 0; j < slides.length; j++) {
+        const dot = document.createElement("li");
+        dotsWrapper.append(dot);
+        dotsArray.push(dot);
+      }
+
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(dotsArray[0]).addClass("active");
       dotsArray.forEach((dot, i) => {
         Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(dot).click(() => {
           Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(dot).getSiblingAll().removeClass("active");
@@ -405,9 +427,10 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
           offset = i * (axis === "vertical" ? +height.replace(/\D/g, "") : +width.replace(/\D/g, ""));
           index = i;
           slidesField.style.transform = axis === "vertical" ? `translateY(-${offset}px)` : `translateX(-${offset}px)`;
+          initCounter();
         });
       });
-    } catch (e) {}
+    }
 
     if (autoplay.value) {
       //если автопрокрутка -- крутим
@@ -425,7 +448,7 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
   }
 };
 
-Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".carousel").slider({});
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".carousel").slider();
 
 /***/ }),
 
