@@ -1,39 +1,58 @@
 import $ from "../core";
 
 $.prototype.slider = function ({
-    autoplay = false,
-    infinity = false,
-    dots = true,
-} = {}) {
+        autoplay = {
+            value: false,
+            infinity: true,
+            speed: 3000
+        },
+        dots = true, //точки слайдера
+        axis = "horizontal" //направление
+    } = {}) {
     for (let i = 0; i < this.length; i++) {
         const width = window.getComputedStyle(this[i].querySelector(".carousel-inner")).width; //ширина родителя
+        const height = window.getComputedStyle(this[i].querySelector(".carousel-inner")).height;//высота родителя
         const slides = this[i].querySelectorAll(".carousel-item"); //количество слайдов
-        const slidesField = this[i].querySelector(".carousel-slides");
-        slidesField.style.width = 100 * slides.length + "%"; //ставим ширину обертки
-        slides.forEach(item => { //все слайды в один размер
-            item.style.width = width;
-        });
-
+        const slidesField = this[i].querySelector(".carousel-slides");//div слайдеров
+        
+        
         let offset = 0;
         let index = 0;
         let interval = null;
         let dotsArray = [];
+        let offsetValue = null;
+        
+        if (axis === "vertical") {//если направление вертикальное
+            slidesField.style.display = "flex";
+            slidesField.style.flexDirection = "column";
+            slidesField.style.height = 100 * slides.length + "%";
 
-        if (dots) {
+            //смещаем слайды на значение высоты родителя
+            offsetValue = (+height.replace(/\D/g, "") * (slides.length - 1));
+        } else {//horizontal
+            slidesField.style.width = 100 * slides.length + "%"; //ставим ширину обертки
+            //смещаем слайды на значение ширины родителя
+            offsetValue = (+width.replace(/\D/g, "") * (slides.length - 1));
+        }
+
+        slides.forEach(item => { //все слайды в один размер по ширине и высоте
+            item.style.height = height;
+            item.style.width = width;
+        });
+
+        if (dots) {//если точки включены -- создаем
             const dotsWrapper = this[i].querySelector(".carousel-indicators");
-            
             for (let j = 0; j < slides.length; j++) {
                 const dot = document.createElement("li");
                 dotsWrapper.append(dot);
                 dotsArray.push(dot);
                 $(dotsArray[0]).addClass("active");
             }
-
-            
         }
         
-        const toggleSlides = function() {
-            slidesField.style.transform = `translateX(-${offset}px)`;
+        const toggleSlides = function() {//переключаем слайды
+            //если направление вертикальное, то вниз; иначе вправо
+            slidesField.style.transform = (axis === "vertical" ? `translateY(-${offset}px)` : `translateX(-${offset}px)`);
                 try {
                     dotsArray.forEach(dot => {
                         $(dot).getSiblingAll().removeClass("active");
@@ -45,19 +64,19 @@ $.prototype.slider = function ({
         const initSlides = function (toNext = true) {
             if (!toNext) {//листаем назад
                 if (offset === 0) {
-                    offset = (+width.replace(/\D/g, "") * (slides.length - 1));
+                    offset = offsetValue;
                     index = slides.length - 1;
                 } else {
-                    offset -= +width.replace(/\D/g, "");
+                    offset -= (axis === "vertical" ? +height.replace(/\D/g, "") : +width.replace(/\D/g, ""));
                     index--;
                 }
 
             } else {//листаем вперед
-                if (offset === (+width.replace(/\D/g, "") * (slides.length - 1))) {
+                if (offset === offsetValue) {
                     offset = 0;
                     index = 0;
                 } else {
-                    offset += +width.replace(/\D/g, "");
+                    offset += (axis === "vertical" ? +height.replace(/\D/g, "") : +width.replace(/\D/g, ""));
                     index++;
                 }
             }
@@ -75,30 +94,30 @@ $.prototype.slider = function ({
         });
 
         try {
-            dotsArray.forEach((dot, i) => {
+            dotsArray.forEach((dot, i, ) => {
                 $(dot).click(() => {
                     $(dot).getSiblingAll().removeClass("active");
                     dotsArray[i].classList.add("active");
-                    offset = i * +width.replace(/\D/g, "");
+                    offset = i * (axis === "vertical" ? +height.replace(/\D/g, "") : +width.replace(/\D/g, ""));
                     index = i;
-                    slidesField.style.transform = `translateX(-${offset}px)`;
+                    slidesField.style.transform = (axis === "vertical" ? `translateY(-${offset}px)` : `translateX(-${offset}px)`);
                 });
             });
         } catch(e){}
 
-        if (autoplay) {//если автопрокрутка -- крутим
+        if (autoplay.value) {//если автопрокрутка -- крутим
             interval = setInterval(() => {
                 initSlides();
 
-                if (!infinity) {//до последнего слайда и затем стоп
+                if (!autoplay.infinity) {//до последнего слайда и затем стоп
                     if (index === slides.length - 1) {
                         clearInterval(interval);
                     }
                 }
-            }, 3000);
+            }, autoplay.speed);
         }
 
     }
 };
 
-$(".carousel").slider();
+$(".carousel").slider({});
