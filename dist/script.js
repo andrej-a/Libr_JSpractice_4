@@ -280,6 +280,57 @@ Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])("#testTrigger").click(func
 
 /***/ }),
 
+/***/ "./src/js/lib/components/progressbar.js":
+/*!**********************************************!*\
+  !*** ./src/js/lib/components/progressbar.js ***!
+  \**********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.setProgressBar = function (wrapperHeight, colorProgressBar) {
+  const progressbar = document.querySelector(".progressbar");
+  progressbar.style.width = "inherit";
+  progressbar.style.maxWidth = "inherit";
+  const wrapper = document.createElement("div");
+  wrapper.style.cssText = `
+        width: inherit;
+        max-width: inherit;
+        height: ${wrapperHeight}px;
+        position: fixed;
+        opacity: .7;
+        z-index: 15;
+    `;
+  const innerProgressBar = document.createElement("div");
+  innerProgressBar.style.cssText = `
+        width: 0%;
+        height: 100%;
+        background-color: ${colorProgressBar};
+    `;
+  wrapper.appendChild(innerProgressBar);
+  progressbar.appendChild(wrapper);
+  const step = (document.documentElement.scrollHeight - document.documentElement.clientHeight) / 100;
+  window.addEventListener('scroll', () => {
+    console.log(innerProgressBar.style.width);
+
+    if (window.pageYOffset / step < 100) {
+      innerProgressBar.style.width = `${window.pageYOffset / step}%`;
+      console.log("biiigg");
+    } else {
+      innerProgressBar.style.width = innerProgressBar.style.width;
+      console.log("less");
+    }
+  });
+};
+
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])().setProgressBar(50, "red");
+
+/***/ }),
+
 /***/ "./src/js/lib/components/slider.js":
 /*!*****************************************!*\
   !*** ./src/js/lib/components/slider.js ***!
@@ -293,6 +344,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
+  images = [],
   autoplay = {
     value: false,
     infinity: true,
@@ -309,8 +361,6 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
 
     const height = window.getComputedStyle(this[i].querySelector(".carousel-inner")).height; //высота родителя
 
-    const slides = this[i].querySelectorAll(".carousel-item"); //количество слайдов
-
     const slidesField = this[i].querySelector(".carousel-slides"); //div слайдеров
 
     let counterField = null;
@@ -318,7 +368,17 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
     let index = 0;
     let interval = null;
     let dotsArray = [];
-    let offsetValue = null;
+    let offsetValue = null; //динамическое создание картинок
+
+    for (let i = 0; i < images.length; i++) {
+      slidesField.innerHTML += `
+                <div class="carousel-item">
+                    <img src=${images[i][0]} alt=${images[i][1]}>
+                </div>
+            `;
+    }
+
+    const slides = this[i].querySelectorAll(".carousel-item"); //количество слайдов
 
     if (axis === "vertical") {
       //если направление вертикальное
@@ -448,7 +508,19 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
   }
 };
 
-Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".carousel").slider();
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".carousel").slider({
+  images: [["https://cdn.pixabay.com/photo/2016/02/19/11/36/canal-1209808_960_720.jpg", "photo"], ["https://cdn.pixabay.com/photo/2016/02/19/11/36/canal-1209808_960_720.jpg", "photo"], ["https://cdn.pixabay.com/photo/2016/02/19/11/36/canal-1209808_960_720.jpg", "photo"], ["https://cdn.pixabay.com/photo/2016/02/19/11/36/canal-1209808_960_720.jpg", "photo"]],
+  autoplay: {
+    value: false,
+    infinity: true,
+    speed: 3000
+  },
+  dots: true,
+  //точки слайдера
+  axis: "horizontal",
+  //направление
+  counter: true
+});
 
 /***/ }),
 
@@ -541,9 +613,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_tabs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tabs */ "./src/js/lib/components/tabs.js");
 /* harmony import */ var _components_accordeon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/accordeon */ "./src/js/lib/components/accordeon.js");
 /* harmony import */ var _components_slider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/slider */ "./src/js/lib/components/slider.js");
-/* harmony import */ var _services_requests__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/requests */ "./src/js/lib/services/requests.js");
+/* harmony import */ var _components_progressbar__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/progressbar */ "./src/js/lib/components/progressbar.js");
+/* harmony import */ var _services_requests__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/requests */ "./src/js/lib/services/requests.js");
 //файл экспортов всего для сбора библиотеки
 //тут обогащается $ методами из разных модулей
+
 
 
 

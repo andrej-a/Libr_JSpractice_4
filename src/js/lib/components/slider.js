@@ -1,6 +1,7 @@
 import $ from "../core";
 
 $.prototype.slider = function ({
+        images = [],
         autoplay = {
             value: false,
             infinity: true,
@@ -13,7 +14,6 @@ $.prototype.slider = function ({
     for (let i = 0; i < this.length; i++) {
         const width = window.getComputedStyle(this[i].querySelector(".carousel-inner")).width; //ширина родителя
         const height = window.getComputedStyle(this[i].querySelector(".carousel-inner")).height;//высота родителя
-        const slides = this[i].querySelectorAll(".carousel-item"); //количество слайдов
         const slidesField = this[i].querySelector(".carousel-slides");//div слайдеров
         let counterField = null;
         
@@ -22,6 +22,17 @@ $.prototype.slider = function ({
         let interval = null;
         let dotsArray = [];
         let offsetValue = null;
+
+        //динамическое создание картинок
+        for (let i = 0; i < images.length; i++) {
+            slidesField.innerHTML += `
+                <div class="carousel-item">
+                    <img src=${images[i][0]} alt=${images[i][1]}>
+                </div>
+            `;
+        }
+
+        const slides = this[i].querySelectorAll(".carousel-item"); //количество слайдов
         
         if (axis === "vertical") {//если направление вертикальное
             slidesField.style.display = "flex";
@@ -137,4 +148,19 @@ $.prototype.slider = function ({
     }
 };
 
-$(".carousel").slider();
+$(".carousel").slider({
+    images: [
+        ["https://cdn.pixabay.com/photo/2016/02/19/11/36/canal-1209808_960_720.jpg", "photo"],
+        ["https://cdn.pixabay.com/photo/2016/02/19/11/36/canal-1209808_960_720.jpg", "photo"],
+        ["https://cdn.pixabay.com/photo/2016/02/19/11/36/canal-1209808_960_720.jpg", "photo"],
+        ["https://cdn.pixabay.com/photo/2016/02/19/11/36/canal-1209808_960_720.jpg", "photo"],
+    ],
+    autoplay: {
+        value: false,
+        infinity: true,
+        speed: 3000
+    },
+    dots: true, //точки слайдера
+    axis: "horizontal", //направление
+    counter: true,
+});
