@@ -293,41 +293,41 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.setProgressBar = function (wrapperHeight, colorProgressBar) {
-  const progressbar = document.querySelector(".progressbar");
-  progressbar.style.width = "inherit";
-  progressbar.style.maxWidth = "inherit";
-  const wrapper = document.createElement("div");
-  wrapper.style.cssText = `
-        width: inherit;
-        max-width: inherit;
-        height: ${wrapperHeight}px;
-        position: fixed;
-        opacity: .7;
-        z-index: 15;
-    `;
-  const innerProgressBar = document.createElement("div");
-  innerProgressBar.style.cssText = `
-        width: 0%;
-        height: 100%;
-        background-color: ${colorProgressBar};
-    `;
-  wrapper.appendChild(innerProgressBar);
-  progressbar.appendChild(wrapper);
-  const step = (document.documentElement.scrollHeight - document.documentElement.clientHeight) / 100;
-  window.addEventListener('scroll', () => {
-    console.log(innerProgressBar.style.width);
-
-    if (window.pageYOffset / step < 100) {
-      innerProgressBar.style.width = `${window.pageYOffset / step}%`;
-      console.log("biiigg");
-    } else {
-      innerProgressBar.style.width = innerProgressBar.style.width;
-      console.log("less");
-    }
-  });
+  for (let i = 0; i < this.length; i++) {
+    const progressbar = document.createElement("div");
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(progressbar).addClass("progressbar");
+    progressbar.style.width = "inherit";
+    progressbar.style.maxWidth = "inherit";
+    const wrapper = document.createElement("div");
+    wrapper.style.cssText = `
+            width: inherit;
+            max-width: inherit;
+            height: ${wrapperHeight}px;
+            position: fixed;
+            opacity: .7;
+            z-index: 15;
+        `;
+    const innerProgressBar = document.createElement("div");
+    innerProgressBar.style.cssText = `
+            width: 0%;
+            height: 100%;
+            background-color: ${colorProgressBar};
+        `;
+    wrapper.appendChild(innerProgressBar);
+    progressbar.appendChild(wrapper);
+    this[i].insertBefore(progressbar, this[i].firstElementChild);
+    const step = (document.documentElement.scrollHeight - document.documentElement.clientHeight) / 100;
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset / step < 100) {
+        innerProgressBar.style.width = `${window.pageYOffset / step}%`;
+      } else {
+        innerProgressBar.style.width = innerProgressBar.style.width;
+      }
+    });
+  }
 };
 
-Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])().setProgressBar(50, "red");
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".container").setProgressBar(5, "red");
 
 /***/ }),
 
@@ -348,7 +348,8 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
   autoplay = {
     value: false,
     infinity: true,
-    speed: 3000
+    speed: 3000,
+    sliderStopHover: true
   },
   dots = true,
   //точки слайдера
@@ -494,16 +495,42 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.slider = function ({
 
     if (autoplay.value) {
       //если автопрокрутка -- крутим
-      interval = setInterval(() => {
-        initSlides();
+      let flag = false; //отметка того, что слайдер уже был прокручен до конца
 
-        if (!autoplay.infinity) {
-          //до последнего слайда и затем стоп
-          if (index === slides.length - 1) {
-            clearInterval(interval);
+      function initInterval() {
+        //инициализируем интервал
+        interval = setInterval(() => {
+          if (!autoplay.infinity) {
+            //если до последнего слайда и затем стоп
+            if (index === slides.length - 1) {
+              //то сразу проверяем наше положение
+              clearInterval(interval);
+              flag = true; //отмечаем, что слайдер уже был прокручен до конца
+            } else {
+              //и если не последний слайд то ...
+              initSlides();
+            }
+          } else {
+            //если infinity === false то бесконечно крутим
+            initSlides();
           }
-        }
-      }, autoplay.speed);
+        }, autoplay.speed);
+      }
+
+      ;
+      initInterval();
+
+      if (autoplay.sliderStopHover) {
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".carousel-inner").addEvent("mouseover", () => {
+          clearInterval(interval);
+        });
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".carousel-inner").addEvent("mouseout", () => {
+          if (!flag) {
+            //если слайдер еще не был прокручен до конца то ...
+            initInterval();
+          }
+        });
+      }
     }
   }
 };
@@ -513,7 +540,8 @@ Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".carousel").slider({
   autoplay: {
     value: false,
     infinity: true,
-    speed: 3000
+    speed: 3000,
+    sliderStopHover: false
   },
   dots: true,
   //точки слайдера

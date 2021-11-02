@@ -5,7 +5,8 @@ $.prototype.slider = function ({
         autoplay = {
             value: false,
             infinity: true,
-            speed: 3000
+            speed: 3000,
+            sliderStopHover: true,
         },
         dots = true, //точки слайдера
         axis = "horizontal", //направление
@@ -134,17 +135,36 @@ $.prototype.slider = function ({
         }
 
         if (autoplay.value) {//если автопрокрутка -- крутим
-            interval = setInterval(() => {
-                initSlides();
-
-                if (!autoplay.infinity) {//до последнего слайда и затем стоп
-                    if (index === slides.length - 1) {
-                        clearInterval(interval);
+            let flag = false;//отметка того, что слайдер уже был прокручен до конца
+            function initInterval() {//инициализируем интервал
+                interval = setInterval(() => {
+                    if (!autoplay.infinity) {//если до последнего слайда и затем стоп
+                        if (index === slides.length - 1) {//то сразу проверяем наше положение
+                            clearInterval(interval);
+                            flag = true;//отмечаем, что слайдер уже был прокручен до конца
+                        } else {//и если не последний слайд то ...
+                            initSlides();
+                        }
+                    } else {//если infinity === false то бесконечно крутим
+                        initSlides();
                     }
-                }
-            }, autoplay.speed);
-        }
+                }, autoplay.speed);
+            };
 
+            initInterval();
+
+            if (autoplay.sliderStopHover) {
+                    $(".carousel-inner").addEvent("mouseover", () => {
+                        clearInterval(interval);
+                    });
+
+                    $(".carousel-inner").addEvent("mouseout", () => {
+                        if (!flag) {//если слайдер еще не был прокручен до конца то ...
+                            initInterval();
+                        }
+                    });
+            }
+        }
     }
 };
 
@@ -158,7 +178,8 @@ $(".carousel").slider({
     autoplay: {
         value: false,
         infinity: true,
-        speed: 3000
+        speed: 3000,
+        sliderStopHover: false,
     },
     dots: true, //точки слайдера
     axis: "horizontal", //направление
