@@ -5,6 +5,7 @@ $.prototype.addClass = function(...classNames) {
     if (classNames.length === 0) {
         return this;
     }
+<<<<<<< HEAD
 
     for (let i = 0; i < this.length; i++) {
         if (!this[i].classList) {
@@ -12,6 +13,14 @@ $.prototype.addClass = function(...classNames) {
         }
 
         this[i].classList.add(...classNames);
+=======
+    for (let i = 0; i < this.length; i++) {
+        if (!this[i]) {
+            continue;
+        } else {
+            this[i].classList.add(...classNames);
+        }
+>>>>>>> master
     }
     return this;
 };

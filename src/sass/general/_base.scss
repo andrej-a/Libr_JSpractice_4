@@ -1,0 +1,12 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1140px;//максимальная ширина которую может занимать
+    padding: 0px 15px;
+    margin: 0px auto;
+}

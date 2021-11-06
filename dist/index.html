@@ -8,10 +8,155 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<<<<<<< HEAD
     <div>1</div>
     <div class="second">2</div>
     <div>3</div>
     
+=======
+    <div class="container">
+        <!-- Dropdown menu -->
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton">Dropdown button</button>
+            <div class="dropdown-menu" data-toggle-id="dropdownMenuButton">
+                <a href="#" class="dropdown-item">Test</a>
+                <a href="#" class="dropdown-item">Test</a>
+                <a href="#" class="dropdown-item">Test</a>
+            </div>
+        </div><!--dropdown-->
+       
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton2">Dropdown button 2</button>
+            <div class="dropdown-menu" data-toggle-id="dropdownMenuButton2">
+                <a href="#" class="dropdown-item">Test 2</a>
+                <a href="#" class="dropdown-item">Test 2</a>
+                <a href="#" class="dropdown-item">Test 2</a>
+            </div>
+        </div><!--dropdown-->
+
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton3">Dropdown button 3</button>
+            <div class="dropdown-menu" data-toggle-id="dropdownMenuButton3">
+                <a href="#" class="dropdown-item">Test 3</a>
+                <a href="#" class="dropdown-item">Test 3</a>
+                <a href="#" class="dropdown-item">Test 3</a>
+            </div>
+        </div><!--dropdown-->
+
+
+        <!--Card-->
+        <div class="parent d-flex f-space-between">
+            <div class="card">
+                <img class="card-img" src="https://cdn.shopify.com/s/files/1/0472/7118/2499/products/SMART100.png?v=1632418394" alt="photo">
+                <div class="card-body">
+                    <div class="card-title">Card title</div>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio non veniam nobis! Saepe reiciendis vero, facilis nostrum eligendi quia rerum at odit iste quo nihil qui repellendus quod ullam eum!
+                    <a href="#" class="btn card-btn" data-toggle="modal" data-target="#exampleModal">Static modal window</a>
+                </div>
+            </div> <!--Card-->
+
+            <div class="card">
+                <img class="card-img" src="https://cdn.shopify.com/s/files/1/0472/7118/2499/products/SMART100.png?v=1632418394" alt="photo">
+                <div class="card-body">
+                    <div class="card-title">Card title 2</div>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio non veniam nobis! Saepe reiciendis vero, facilis nostrum eligendi quia rerum at odit iste quo nihil qui repellendus quod ullam eum!
+                    <a href="#" id="testTrigger" class="btn card-btn" data-target="#dynamicModal">Dynamic modal window</a>
+                </div>
+            </div> <!--Card-->
+
+        </div><!--parent-->
+
+        <!--Modal-->
+        <div class="modal" data-close id="exampleModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button class="close">
+                        <span data-close>&times;</span>
+                    </button>
+
+                    <div class="modal-header">
+                        <div class="modal-title">
+                            Modal Title
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates debitis dolores rem dolore aliquam ut soluta est suscipit? Placeat qui, minima est porro dicta harum magni maxime saepe aliquid totam?
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" data-close>Close</button>
+                        <button class="btn btn-success">Safe changes</button>
+                    </div>
+                </div>
+            </div>
+        </div> <!--modal-->
+
+        <!--Tabs-->
+        <div class="tab mt-20">
+            <div class="tab-panel" data-tabpanel>
+                <div class="tab-item tab-item--active">Content 1</div>
+                <div class="tab-item">Content 2</div>
+                <div class="tab-item">Content 3</div>
+            </div>
+            <div class="tab-content tab-content--active">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum sed corrupti saepe repudiandae numquam porro. Id consequuntur doloremque cumque mollitia vero, dolorum accusantium omnis optio. Laudantium dignissimos odit ducimus sed!
+                Tenetur, eligendi, animi, quis quas corrupti expedita eaque placeat quam ullam provident minus repellendus possimus. Quae officiis magnam aperiam error at alias rerum harum incidunt. Optio voluptatibus error cum officiis!
+                TEST 1
+            </div>
+            <div class="tab-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum sed corrupti saepe repudiandae numquam porro. Id consequuntur doloremque cumque mollitia vero, dolorum accusantium omnis optio. Laudantium dignissimos odit ducimus sed!
+                Tenetur, eligendi, animi, quis quas corrupti expedita eaque placeat quam ullam provident minus repellendus possimus. Quae officiis magnam aperiam error at alias rerum harum incidunt. Optio voluptatibus error cum officiis!
+                TEST 2
+            </div>
+            <div class="tab-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum sed corrupti saepe repudiandae numquam porro. Id consequuntur doloremque cumque mollitia vero, dolorum accusantium omnis optio. Laudantium dignissimos odit ducimus sed!
+                Tenetur, eligendi, animi, quis quas corrupti expedita eaque placeat quam ullam provident minus repellendus possimus. Quae officiis magnam aperiam error at alias rerum harum incidunt. Optio voluptatibus error cum officiis!
+                TEST 3
+            </div>
+        </div> 
+
+        <br><br><br>
+
+        <!--Accordion-->
+        <div class="accordeon">
+            <p class="accordeon-heading">Вопрос первый</p>
+            <div class="accordeon-block">Ответ на первый вопрос</div>
+
+            <p class="accordeon-heading">Вопрос второй</p>
+            <div class="accordeon-block">Ответ на второй вопрос</div>
+
+            <p class="accordeon-heading">Вопрос третий</p>
+            <div class="accordeon-block">Ответ на третий вопрос</div>
+        </div>
+
+
+        <!--Slider-->
+
+        <div class="carousel">
+            <ol class="carousel-indicators"></ol>
+            
+            <div class="carousel-inner">
+                <div class="carousel-slides"></div>
+            </div>
+
+            <a href="#" class="carousel-prev" data-slide="prev">
+                <span class="carousel-prev-icon">
+                    &lt;
+                </span>
+            </a>
+
+            <a href="#" class="carousel-next" data-slide="next">
+                <span class="carousel-next-item">
+                    &gt;
+                </span>
+            </a>
+
+        </div><!--carousel-->
+
+    </div> <!--container-->
+
+
+
+>>>>>>> master
     <script src='script.js'></script>
 </body>
 </html>

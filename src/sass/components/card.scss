@@ -1,0 +1,40 @@
+.card{
+    width: 400px;
+    background-color: #fff;
+    border: 1px solid $dark;
+    border-radius: 4px;
+    display: block;
+    margin: 20px;
+    box-shadow: 5px 5px 30px $dark;
+    &-img{
+        width: 60%;
+        display: block;
+        margin: 10px auto;
+        &:hover{
+            width: 80%;
+        }
+    }
+    &-body{
+        width: 100%;
+        display: inline-block;
+        padding: 10px;
+    }
+    &-title{
+        text-align: center;
+        font-size: 24px;
+        margin: 10px;
+    }
+    &-text{
+        text-align: left;
+        font-size: 16px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    &-btn{
+        display: block;
+        margin: 10px 10px 0 10px;
+        position: relative;
+        border: 0;
+        text-decoration: none;
+    }
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import "./lib/lib";
 
 $(".second").setEvent("click", logHello);
@@ -9,3 +10,6 @@ function logHello() {
 $(".second").outEvent("click", logHello);
 
 $(".second").click(logHello);
+=======
+import $ from "./lib/lib";
+>>>>>>> master
