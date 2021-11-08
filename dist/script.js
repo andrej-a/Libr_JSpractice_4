@@ -86,8 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-<<<<<<< HEAD
-=======
 /***/ "./src/js/lib/components/accordeon.js":
 /*!********************************************!*\
   !*** ./src/js/lib/components/accordeon.js ***!
@@ -100,38 +98,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
 
 
-_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggleAccodreon = function () {
-  const items = document.querySelectorAll(".accordeon-block");
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggleAccodreon = function ({
+  elements = []
+} = {}) {
+  elements.forEach(value => {
+    //динамически создаем элементы аккордеона
+    this[0].innerHTML += `<p class="accordeon-heading">${value[0]}</p>
+            <div class="accordeon-block">${value[1]}</div>`;
+  });
+  const item = document.querySelectorAll(".accordeon-block");
+  const trigger = document.querySelectorAll(".accordeon-heading");
 
-  for (let i = 0; i < this.length; i++) {
-    items[i].style.display = "none"; //прячем все айтемы
+  for (let i = 0; i < item.length; i++) {
+    item[i].style.display = "none"; //прячем все айтемы
 
-    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).click(() => {
-      //при клике прверяем
-      if (items[i].style.display !== "none") {
-        //если айтем уже открыт
-        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(items[i]).fadeOut(400); //скрываем
-
-        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).removeClass("accordeon-active"); //убираем класс активности
-      } else {
-        //если закрыт
-        for (let j = 0; j < this.length; j++) {
-          Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[j]).removeClass("accordeon-active"); //убираем класс акивности всех таргетов
-
-          items[j].style.display = "none";
-        }
-
-        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).addClass("accordeon-active"); //добавляем рабочему
-
-        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(items[i]).fadeIn(400);
-      }
+    trigger[i].addEventListener("click", () => {
+      item[i].style.display = "block";
+      item[i].style.height = "60px";
     });
   }
-
-  return this;
 };
 
-Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".accordeon-heading").toggleAccodreon();
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".accordeon").toggleAccodreon({
+  elements: [["Вопрос первый", "Ответ на первый вопрос"], ["Вопрос второй", "Ответ на второй вопрос"], ["Вопрос третий", "Ответ на третий вопрос"]]
+});
 
 /***/ }),
 
@@ -585,7 +575,6 @@ Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])("[data-tabpanel] .tab-item
 
 /***/ }),
 
->>>>>>> master
 /***/ "./src/js/lib/core.js":
 /*!****************************!*\
   !*** ./src/js/lib/core.js ***!
@@ -604,8 +593,6 @@ $.prototype.init = function (selector) {
     return this; //{}
   }
 
-<<<<<<< HEAD
-=======
   if (selector.tagName) {
     //если передаем тэг 
     this[0] = selector;
@@ -613,7 +600,6 @@ $.prototype.init = function (selector) {
     return this;
   }
 
->>>>>>> master
   Object.assign(this, document.querySelectorAll(selector));
   this.length = document.querySelectorAll(selector).length;
   return this;
@@ -638,12 +624,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core */ "./src/js/lib/core.js");
 /* harmony import */ var _modules_display__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/display */ "./src/js/lib/modules/display.js");
 /* harmony import */ var _modules_classes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/classes */ "./src/js/lib/modules/classes.js");
-<<<<<<< HEAD
 /* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/actions */ "./src/js/lib/modules/actions.js");
-=======
-/* harmony import */ var _modules_handlers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/handlers */ "./src/js/lib/modules/handlers.js");
-/* harmony import */ var _modules_attributes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/attributes */ "./src/js/lib/modules/attributes.js");
-/* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/actions */ "./src/js/lib/modules/actions.js");
+/* harmony import */ var _modules_handlers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/handlers */ "./src/js/lib/modules/handlers.js");
+/* harmony import */ var _modules_attributes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/attributes */ "./src/js/lib/modules/attributes.js");
 /* harmony import */ var _modules_animation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/animation */ "./src/js/lib/modules/animation.js");
 /* harmony import */ var _components_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/dropdown */ "./src/js/lib/components/dropdown.js");
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./src/js/lib/components/modal.js");
@@ -652,15 +635,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_slider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/slider */ "./src/js/lib/components/slider.js");
 /* harmony import */ var _components_progressbar__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/progressbar */ "./src/js/lib/components/progressbar.js");
 /* harmony import */ var _services_requests__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/requests */ "./src/js/lib/services/requests.js");
->>>>>>> master
 //файл экспортов всего для сбора библиотеки
 //тут обогащается $ методами из разных модулей
 
 
 
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -671,7 +651,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
->>>>>>> master
+
 /* harmony default export */ __webpack_exports__["default"] = (_core__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
@@ -686,13 +666,44 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
-<<<<<<< HEAD
  //1
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.setEvent = function (eventName, callback) {
   if (!eventName || !callback) {
-=======
- //1 set/get inner.HTML
+    return this;
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    this[i].addEventListener(eventName, callback);
+  }
+
+  return this;
+}; //2
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.outEvent = function (eventName, callback) {
+  if (!eventName || !callback) {
+    return this;
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    this[i].removeEventListener(eventName, callback);
+  }
+
+  return this;
+}; //3
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (callback) {
+  for (let i = 0; i < this.length; i++) {
+    if (!callback) {
+      return this[i].click();
+    } else {
+      this[i].addEventListener("click", callback);
+    }
+  }
+}; //1 set/get inner.HTML
+
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.html = function (item) {
   for (let i = 0; i < this.length; i++) {
@@ -967,56 +978,30 @@ __webpack_require__.r(__webpack_exports__);
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.addAttribute = function (item, value) {
   if (!item || !value) {
->>>>>>> master
     return this;
   }
 
   for (let i = 0; i < this.length; i++) {
-<<<<<<< HEAD
-    this[i].addEventListener(eventName, callback);
-=======
     this[i].setAttribute(item, value);
->>>>>>> master
   }
 
   return this;
 }; //2
 
 
-<<<<<<< HEAD
-_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.outEvent = function (eventName, callback) {
-  if (!eventName || !callback) {
-=======
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.removeAttribute = function (item) {
   if (!item) {
->>>>>>> master
     return this;
   }
 
   for (let i = 0; i < this.length; i++) {
-<<<<<<< HEAD
-    this[i].removeEventListener(eventName, callback);
-=======
     this[i].removeAttribute(item);
->>>>>>> master
   }
 
   return this;
 }; //3
 
 
-<<<<<<< HEAD
-_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (callback) {
-  for (let i = 0; i < this.length; i++) {
-    if (!callback) {
-      return this[i].click();
-    } else {
-      this[i].addEventListener("click", callback);
-    }
-  }
-
-  return this;
-=======
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.hasAttribute = function (item) {
   if (!item) {
     return this;
@@ -1040,7 +1025,6 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.hasAttributeAll = functi
   }
 
   return obj;
->>>>>>> master
 };
 
 /***/ }),
@@ -1063,22 +1047,22 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.addClass = function (...
   }
 
   for (let i = 0; i < this.length; i++) {
-<<<<<<< HEAD
     if (!this[i].classList) {
       continue;
     }
 
     this[i].classList.add(...classNames);
-=======
-    if (!this[i]) {
-      continue;
-    } else {
-      this[i].classList.add(...classNames);
-    }
->>>>>>> master
-  }
 
-  return this;
+    for (let i = 0; i < this.length; i++) {
+      if (!this[i]) {
+        continue;
+      } else {
+        this[i].classList.add(...classNames);
+      }
+    }
+
+    return this;
+  }
 }; //2
 
 
@@ -1174,8 +1158,6 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggle = function () {
 
 /***/ }),
 
-<<<<<<< HEAD
-=======
 /***/ "./src/js/lib/modules/handlers.js":
 /*!****************************************!*\
   !*** ./src/js/lib/modules/handlers.js ***!
@@ -1273,7 +1255,6 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.post = async function (u
 
 /***/ }),
 
->>>>>>> master
 /***/ "./src/js/main.js":
 /*!************************!*\
   !*** ./src/js/main.js ***!
@@ -1285,17 +1266,6 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.post = async function (u
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/lib */ "./src/js/lib/lib.js");
 
-<<<<<<< HEAD
-$(".second").setEvent("click", logHello);
-
-function logHello() {
-  console.log("Hello");
-}
-
-$(".second").outEvent("click", logHello);
-$(".second").click(logHello);
-=======
->>>>>>> master
 
 /***/ })
 

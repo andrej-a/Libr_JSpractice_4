@@ -8,15 +8,12 @@ $.prototype.init = function(selector) {
         return this; //{}
     }
 
-<<<<<<< HEAD
-=======
     if (selector.tagName) { //если передаем тэг 
         this[0] = selector;
         this.length = 1;
         return this;
     }
 
->>>>>>> master
     Object.assign(this, document.querySelectorAll(selector));
     this.length = document.querySelectorAll(selector).length;
     return this;

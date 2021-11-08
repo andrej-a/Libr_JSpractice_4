@@ -1,27 +1,33 @@
 import $ from "../core";
 
-$.prototype.toggleAccodreon = function () {
-    const items = document.querySelectorAll(".accordeon-block");
+$.prototype.toggleAccodreon = function ({elements = []} = {}) {
+    
 
-    for (let i = 0; i < this.length; i++) {
-        items[i].style.display = "none";//прячем все айтемы
+    elements.forEach(value => {//динамически создаем элементы аккордеона
+        this[0].innerHTML += 
+            `<p class="accordeon-heading">${value[0]}</p>
+            <div class="accordeon-block">${value[1]}</div>`
+        ;
+    });
 
-        $(this[i]).click(() => {//при клике прверяем
-            if (items[i].style.display !== "none") {//если айтем уже открыт
-                $(items[i]).fadeOut(400);//скрываем
-                $(this[i]).removeClass("accordeon-active");//убираем класс активности
-            } else {//если закрыт
-                for (let j = 0; j < this.length; j++) {
-                    $(this[j]).removeClass("accordeon-active");//убираем класс акивности всех таргетов
-                    items[j].style.display = "none";
-                }
-                
-                $(this[i]).addClass("accordeon-active");//добавляем рабочему
-                $(items[i]).fadeIn(400);
-            }
+    const item = document.querySelectorAll(".accordeon-block");
+    const trigger = document.querySelectorAll(".accordeon-heading");
+    
+    for (let i = 0; i < item.length; i++) {
+        item[i].style.display = "none";//прячем все айтемы
+
+        trigger[i].addEventListener("click", () => {
+            item[i].style.display = "block";
+            item[i].style.height = "60px";
         });
     }
-    return this;
+    
 };
 
-$(".accordeon-heading").toggleAccodreon();
+$(".accordeon").toggleAccodreon({
+    elements: [
+        ["Вопрос первый", "Ответ на первый вопрос"],
+        ["Вопрос второй", "Ответ на второй вопрос"],
+        ["Вопрос третий", "Ответ на третий вопрос"],
+    ]
+});

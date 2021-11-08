@@ -1,10 +1,9 @@
-<<<<<<< HEAD
+@import url("https://fonts.googleapis.com/css2?family=Andada+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box; }
-=======
-@import url("https://fonts.googleapis.com/css2?family=Andada+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap");
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -243,7 +242,10 @@
     border-bottom: 1px solid rgba(18, 18, 22, 0.2);
     cursor: pointer; }
   .accordeon-block {
-    font-size: 48px; }
+    font-size: 48px;
+    height: 0px;
+    transition: height 1s;
+    display: none; }
   .accordeon-active {
     color: #921111; }
 
@@ -478,4 +480,3 @@
 
 .h-500 {
   height: 500px; }
->>>>>>> master

@@ -1,6 +1,5 @@
 import $ from "../core";
 
-<<<<<<< HEAD
 //1
 $.prototype.setEvent = function(eventName, callback) {
     if (!eventName || !callback) {
@@ -34,7 +33,8 @@ $.prototype.click = function(callback) {
             this[i].addEventListener("click", callback);
         }
     }
-=======
+}
+
 //1 set/get inner.HTML
 $.prototype.html = function(item) {
     for (let i = 0; i < this.length; i++) {
@@ -142,6 +142,5 @@ $.prototype.getSiblingAll = function () {
     }
     this.length = arr.length;
 
->>>>>>> master
     return this;
 };

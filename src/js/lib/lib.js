@@ -5,9 +5,7 @@
 import $ from "./core";
 import "./modules/display";
 import "./modules/classes";
-<<<<<<< HEAD
 import "./modules/actions";
-=======
 import "./modules/handlers";
 import "./modules/attributes";
 import "./modules/actions";
@@ -19,7 +17,5 @@ import "./components/accordeon";
 import "./components/slider";
 import "./components/progressbar";
 import "./services/requests";
-
->>>>>>> master
 
 export default $;
