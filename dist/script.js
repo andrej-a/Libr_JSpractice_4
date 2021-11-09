@@ -103,24 +103,35 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggleAccodreon = functi
 } = {}) {
   elements.forEach(value => {
     //динамически создаем элементы аккордеона
-    this[0].innerHTML += `<p class="accordeon-heading">${value[0]}</p>
-            <div class="accordeon-block">${value[1]}</div>`;
+    this[0].innerHTML += `   <p class="accordeon-heading">${value[0]}</p>
+                <div class="accordeon-block">
+                    <div class="accordeon-inner">
+                        ${value[1]}
+                    </div>
+                </div>`;
   });
-  const item = document.querySelectorAll(".accordeon-block");
+  const items = document.querySelectorAll(".accordeon-block");
   const trigger = document.querySelectorAll(".accordeon-heading");
 
-  for (let i = 0; i < item.length; i++) {
-    item[i].style.display = "none"; //прячем все айтемы
-
+  for (let i = 0; i < items.length; i++) {
     trigger[i].addEventListener("click", () => {
-      item[i].style.display = "block";
-      item[i].style.height = "60px";
+      if (!items[i].classList.contains("accordeon-block-active")) {
+        items.forEach((item, index) => {
+          Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(item).removeClass("accordeon-block-active");
+          Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(trigger[index]).removeClass("accordeon-active");
+        });
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(trigger[i]).addClass("accordeon-active");
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(items[i]).addClass("accordeon-block-active");
+      } else {
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(trigger[i]).removeClass("accordeon-active");
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(items[i]).removeClass("accordeon-block-active");
+      }
     });
   }
 };
 
 Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".accordeon").toggleAccodreon({
-  elements: [["Вопрос первый", "Ответ на первый вопрос"], ["Вопрос второй", "Ответ на второй вопрос"], ["Вопрос третий", "Ответ на третий вопрос"]]
+  elements: [["Вопрос первый", "Lorem Ipsum - это текст, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."], ["Вопрос второй", "Lorem Ipsum - это текст, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."], ["Вопрос третий", "Lorem Ipsum - это текст, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."]]
 });
 
 /***/ }),
