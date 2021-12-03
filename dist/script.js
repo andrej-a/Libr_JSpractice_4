@@ -99,7 +99,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggleAccodreon = function ({
-  elements = []
+  elements = [],
+  collapseAll = true
 } = {}) {
   elements.forEach(value => {
     //динамически создаем элементы аккордеона
@@ -110,28 +111,35 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggleAccodreon = functi
                     </div>
                 </div>`;
   });
-  const items = document.querySelectorAll(".accordeon-block");
   const trigger = document.querySelectorAll(".accordeon-heading");
+  const items = document.querySelectorAll(".accordeon-block");
 
   for (let i = 0; i < items.length; i++) {
     trigger[i].addEventListener("click", () => {
       if (!items[i].classList.contains("accordeon-block-active")) {
-        items.forEach((item, index) => {
-          Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(item).removeClass("accordeon-block-active");
-          Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(trigger[index]).removeClass("accordeon-active");
-        });
+        if (collapseAll) {
+          items.forEach((item, index) => {
+            Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(item).removeClass("accordeon-block-active");
+            item.style.maxHeight = 0;
+            Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(trigger[index]).removeClass("accordeon-active");
+          });
+        }
+
         Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(trigger[i]).addClass("accordeon-active");
         Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(items[i]).addClass("accordeon-block-active");
+        items[i].style.maxHeight = `${items[i].scrollHeight}px`;
       } else {
         Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(trigger[i]).removeClass("accordeon-active");
         Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(items[i]).removeClass("accordeon-block-active");
+        items[i].style.maxHeight = 0;
       }
     });
   }
 };
 
 Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".accordeon").toggleAccodreon({
-  elements: [["Вопрос первый", "Lorem Ipsum - это текст, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."], ["Вопрос второй", "Lorem Ipsum - это текст, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."], ["Вопрос третий", "Lorem Ipsum - это текст, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."]]
+  elements: [["Вопрос первый", "Анний из Витербо (итал. Annio da Viterbo, лат. Joannes Annius Viterb(i)ensis), 1432 или 1437—1502) — итальянский богослов и историк, член ордена доминиканцев. Анний известен как фальсификатор исторических источников, опубликованных им в 1498 году в снабжённом комментариями сборнике документов «Commentaria super opera diversorum auctorum de antiquitatibus loquentium». Книга произвела научную сенсацию и обсуждалась до XVIII века. В настоящее время Анний и его подделки изучаются с точки зрения понимания научной культуры эпохи Возрождения и развития исторической методологии."], ["Вопрос второй", "На основе поддельных исторических хроник и надписей Анний предложил концепцию мировой истории от Адама до Средних веков, в рамках которой его родной город Витербо играл центральную роль. Назначением исторической методологии было представить фальсифицированные им источники как наиболее достоверные. Достоверными, согласно Аннию, являются записи государственных архивов и публичных библиотек, созданные и широкодоступные во времена описываемых в них событий. Наиболее авторитетными источниками Анний называл данные ономастики и эпиграфики, тогда как исторический нарратив, прежде всего созданный греческой историографией, он полагал заведомо ложным. Особенностью методологии Анния был эвгемеризм, отождествление мифологических персонажей с историческими деятелями. В опубликованных в 1492—1499 годах Аннием трактатах основателями этрусской и мировой цивилизации назывались Осирис и Ной. Около 1493 года Анний открыл для себя труды халдея Бероса, назвав его величайшим из варварских историков. Его труды, дополненные другими источниковедческими «открытиями», стали лейтмотивом аннианской псевдоистории, основным элементом которой является доказательство величия доримской цивилизации. Ссылаясь на Бероса, Анний утверждал, что на 108 году после потопа Ной со своими потомками прибыл в Италию и основал цивилизацию с центрами в Витербо и Ватикане. Опровержения «трудов» Анния появились уже в начале XVI века, однако разоблачители не были едины в своей позиции и не всегда отвергали труды доминиканца целиком и полностью. До XVIII века у аннианской хронологии находились последователи и защитники."], ["Вопрос третий", "Lorem Ipsum - это текст, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной для текстов на латинице с начала XVI века."]],
+  collapseAll: false
 });
 
 /***/ }),
